@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="timer">Оставшееся время: <span id="time">10</span> секунд</div>
+    <div id="message" style="display: none;">Поздравляем, время истекло!</div>
+    <button id="startButton">Start</button>
+    <button id="reset">reset</button>
+    <script>
+        let startTime = 10;
+
+        let time = document.getElementById('time');
+        let message = document.getElementById('message');
+        let startButton = document.getElementById('startButton');
+        let reset = document.getElementById('reset')
+        let count
+
+        function update() {
+            time.textContent = startTime;
+        }
+
+        function startTimer() {
+            startButton.disabled = true;
+           
+            count = setInterval(() => {
+                startTime--;
+                update();
+                if (startTime === 0) {
+                    clearInterval(count);
+                    showMessage();
+                }
+            }, 1000); 
+            
+        }
+
+        function resetTimer(){
+            reset.disabled = true;
+            clearInterval(count);
+            startTime = 10
+            update();
+            message.style.display = 'none';
+            reset.disabled = false;
+            startButton.disabled = false;
+        }
+       
+        
+        function showMessage() {
+            message.style.display = 'block';
+        }
+
+        startButton.addEventListener('click', startTimer);
+        reset.addEventListener('click', resetTimer)
+        
+        </script>
+</body>
+</html>
